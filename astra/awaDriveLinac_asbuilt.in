@@ -1,0 +1,156 @@
+&NEWRUN
+  Head='AWA drive beam (October 2017)'
+! 10-30-2017  
+  Version=2
+  Run=1
+  NLoop=0,
+  Distribution = 'radial2k_1G.ini', Xoff=0.0, Yoff=0.0, 
+  Lmagnetized=.F  
+  EmitS=.T
+  PhaseS=.T
+  TrackS=.T
+  RefS=.T
+  TcheckS=.T
+  CathodeS=.T
+  TRACK_ALL=.T
+  PHASE_SCAN=.T
+  Larmors=.T
+  AUTO_PHASE=.T
+  check_ref_part=.F
+  Max_Step=3000000
+  H_max=0.0010
+  H_min=0.0001
+  QBunch = 0.5
+  XYrms= 0.83316396083030908
+  Trms = 3.40e-3
+/
+
+&OUTPUT
+  ZSTART= 0.00
+  ZSTOP = 12.0
+  Zemit=500
+  Zphase=1
+  Local_Emit=.F
+  High_res=.T
+! ------------  beam density monitor --------------
+  Screen(1) =  3.66  ! YAG1
+  Screen(2) =  6.05  ! YAG2
+  Screen(3) =  9.58  ! YAG3
+  Screen(4) = 12.00  ! YAG4
+/
+
+&SCAN
+  LScan=.F
+  Scan_para='Phi(1)'
+!  S_min=0.08, S_max=0.2, S_numb=25
+  !Scan_para='Phi(1)'
+  S_min=-10, S_max=120, S_numb=200
+  FOM(1)='bunch charge', 
+  FOM(2)='mean energy'
+  FOM(3)='rms energy', 
+  FOM(4)='hor spot'
+  FOM(5)='ver spot'
+  FOM(6)='hor emit'
+  FOM(7)='ver emit'
+  FOM(8)='bunch length'
+/
+
+&MODULES
+/
+ 
+&ERROR
+/
+
+&CHARGE
+  LSPCH=.F
+  Max_scale=0.1 
+  Max_Count = 100
+! 2D space charge (used when LSPCH=T)
+  Nrad=7,
+  Nlong_in=10
+  Cell_var=2.0
+  min_grid=0.0D-6
+  Lmirror=.T
+  Linert=.F
+! 3D space charge (used when LSPCH=T and LSPCH3d=T)
+  LSPCH3D=.F
+  Nxf=32, Nyf=32, Nzf=32
+  Smooth_x=1
+  Smooth_y=1
+  Smooth_z=1
+ /
+
+&CSR
+/ 
+ 
+&Aperture
+/
+
+
+! EEX dipole power supply limited to 50 MeV linac4+6 are turned off
+ 
+&CAVITY
+  LEfield=.T
+! 45 deg off crest is 36.55, max energy gain at 35.17, gun phi set to 1.38 deg
+  File_Efield(1) = 'gun.dat'  ,
+  Nue(1)=1.3,	MaxE(1)= -76,	   Phi(1)= -3.428, C_pos(1)= 0.00,
+
+  File_Efield(2) = 'linac.dat'  ,
+  Nue(2)=1.3,	MaxE(2)= -21.5381, Phi(2)= -0, C_pos(2)= 1.18,
+  
+  File_Efield(3) = 'linac.dat'  ,
+  Nue(3)=1.3,	MaxE(3)= -24.4460, Phi(3)= -0, C_pos(3)= 3.91,
+  
+  File_Efield(4) = 'linac.dat'  ,
+  Nue(4)=1.3,	MaxE(4)= -25.2010, Phi(4)= -0, C_pos(4)= 5.46,
+  
+  File_Efield(5) = 'linac.dat'  ,
+  Nue(5)=1.3,	MaxE(5)= -00,	   Phi(5)= -0, C_pos(5)= 7.59,
+  
+  File_Efield(6) = 'linac.dat'  ,
+  Nue(6)=1.3,	MaxE(6)= -27.8221, Phi(6)= -0, C_pos(6)= 8.93,
+  
+  File_Efield(7) = 'linac.dat'  ,
+  Nue(7)=1.3,	MaxE(7)= -00,	   Phi(7)= -0, C_pos(7)=10.34,
+  
+/
+
+&SOLENOID
+
+!!!! gun solenoids
+
+  LBfield=.T, 
+!  S_noscale(1)=.T
+  File_Bfield(1)='sol_bucking_p550A.dat', 
+! peak field is 1797 G 
+  MaxB(1)=0.1797, S_smooth(1)=10, S_pos(1)=0.0   
+
+!  S_noscale(2)=.T
+  File_Bfield(2)='sol_focusing_m550A.dat', 
+! peak field is -1824 G
+  MaxB(2)=-0.18240000000000001, S_smooth(2)=10, S_pos(2)=0.0   
+
+!  S_noscale(3)=.T
+  File_Bfield(3)='sol_matching_m440A.dat', 
+! peak field is -5981 G 
+  MaxB(3)=-0.30, S_smooth(3)=10, S_pos(3)=0.0   
+
+!!!! linac solenoids
+
+  File_Bfield(4)='sol_linac_500A.dat', 
+  MaxB(4)=0.0, S_smooth(4)=10, S_pos(4)=2.044  
+
+  File_Bfield(5)='sol_linac_500A.dat', 
+  MaxB(5)=0.0,   S_smooth(5)=10, S_pos(5)=4.620
+
+  File_Bfield(6)='sol_linac_500A.dat', 
+  MaxB(6)=0.0,   S_smooth(6)=10, S_pos(6)=6.381  
+/
+
+&QUADRUPOLE
+  Loop=.F
+  Lquad=.F
+/
+
+&DIPOLE 
+/
